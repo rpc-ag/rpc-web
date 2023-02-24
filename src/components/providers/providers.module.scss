@@ -1,0 +1,106 @@
+@import "@styles/variables";
+@import "@styles/mixins";
+
+.main {
+  width: 100%;
+  height: 430px;
+  background: url("/images/common/head-bg.jpg") repeat-x;
+  background-position: center top;
+  position: relative;
+  opacity: 0;
+  top: -40px;
+  transform: scale(1.2);
+  @include e1000;
+
+  &:global {
+    &.active {
+      opacity: 1;
+      top: 0;
+      transform: scale(1);
+    }
+  }
+
+  :global {
+    .container {
+      max-width: max-content;
+      @include md {
+        max-width: max-content;
+      }
+      @include lg {
+        max-width: 1200px;
+      }
+
+      @include xl {
+        max-width: 1300px;
+      }
+    }
+  }
+}
+
+.logo {
+  width: 280px;
+  margin: 0 auto;
+  position: relative;
+  top: -60px;
+
+  @include lg {
+    width: 300px;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.slider {
+  width: 100%;
+}
+
+.lines {
+  width: calc(100% + 400px);
+  left: -200px;
+  right: -200px;
+  height: 100%;
+  position: absolute;
+  top: -80%;
+  background: url("/images/provider-lines.png") no-repeat;
+  background-position: center top;
+  background-size: 100% 100%;
+
+  @include md {
+    width: calc(100% + 480px);
+    left: -240px;
+    right: -240px;
+  }
+
+  @include lg {
+    width: calc(100% + 140px);
+    left: -70px;
+    right: -70px;
+  }
+
+  @include xl {
+    width: calc(100% + 140px);
+    left: -70px;
+    right: -70px;
+  }
+
+  @include xxl {
+    width: calc(100% - 140px);
+    left: 70px;
+    right: 70px;
+  }
+}
+
+.item {
+  width: 166px;
+  height: 221px;
+  background: #ffffff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-height: 64px;
+  }
+}

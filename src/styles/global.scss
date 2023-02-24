@@ -1,0 +1,46 @@
+@import "./variables";
+@import "./mixins";
+@import "./base/icons";
+
+body,
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+
+  @include md {
+    font-size: 16px;
+  }
+}
+
+body {
+  font-family: $font-regular;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1;
+  font-family: $font-regular;
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden !important;
+  min-height: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+
+  background: #ffffff;
+  #__next {
+    height: auto;
+  }
+
+  &.mobile-menu-active {
+    overflow-y: hidden;
+    //  position: fixed;
+  }
+}
+
+.main {
+  background: rgba(224, 222, 233, 0.2);
+  width: 100%;
+  overflow-x: hidden;
+}
