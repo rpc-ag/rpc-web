@@ -6,8 +6,8 @@ export default function Head() {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#000000" />
 
-      <meta name="keywords" content="rpc.ag, blockchain infrastructure, node providers, developer community, endpoint, project owners, secure node sharing">
-      <meta name="author" content="rpc.ag">
+      <meta name="keywords" content="rpc.ag, blockchain infrastructure, node providers, developer community, endpoint, project owners, secure node sharing" />
+      <meta name="author" content="rpc.ag" />
 
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
