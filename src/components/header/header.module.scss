@@ -41,15 +41,40 @@
     }
 
     li {
+      margin-left: 40px;
+      &:first-child {
+        margin-left: 0;
+      }
+      @include lg {
+        margin-left: 40px;
+      }
       a {
         color: #fff;
         font-size: 14px;
         font-weight: 500;
-        line-height: 1.2;
+        line-height: 1;
         text-decoration: none;
-        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        @include e200;
+        &::hover {
+          color: rgba(255, 255, 255, 0.5);
+        }
         @include lg {
           font-size: 16px;
+        }
+
+        svg {
+          margin-right: 5px;
+          position: relative;
+          top: -2px;
+        }
+
+        .mobile-hidden {
+          display: none;
+          @include lg {
+            display: block;
+          }
         }
       }
     }

@@ -3,20 +3,26 @@
 
 .main {
   width: 100%;
-  height: 430px;
+  height: 280px;
   background: url("/images/common/head-bg.jpg") repeat-x;
   background-position: center top;
   position: relative;
-  opacity: 0;
-  top: -40px;
-  transform: scale(1.2);
-  @include e1000;
+
+  @include md {
+    height: 430px;
+  }
 
   &:global {
     &.active {
-      opacity: 1;
-      top: 0;
-      transform: scale(1);
+      .lines {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+      .slider {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
   }
 
@@ -53,6 +59,19 @@
 
 .slider {
   width: 100%;
+  opacity: 0;
+  top: -40px;
+  transform: scale(1.2) translateY(130px);
+  position: relative;
+  overflow: visible;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @include e1000;
+
+  @include lg {
+    overflow: hidden;
+  }
 }
 
 .lines {
@@ -65,6 +84,9 @@
   background: url("/images/provider-lines.png") no-repeat;
   background-position: center top;
   background-size: 100% 100%;
+  opacity: 0;
+  transform: scale(1.1) translateY(-10px);
+  @include e1000;
 
   @include md {
     width: calc(100% + 480px);
@@ -93,14 +115,21 @@
 
 .item {
   width: 166px;
-  height: 221px;
+  height: 118px;
   background: #ffffff;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  @include md {
+    height: 221px;
+  }
 
   img {
     max-height: 64px;
+    max-width: 100%;
   }
 }

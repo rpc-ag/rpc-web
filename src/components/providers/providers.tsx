@@ -8,16 +8,16 @@ import "swiper/css";
 
 const Providers = () => {
   return (
-    <section className={styles.main + " provider-slide"}>
+    <section className={styles.main + " provider-main"}>
       <div className={styles.logo}>
         <img src="/images/common/rpc-main.png" alt="RPC" />
       </div>
 
       <div className="container position-relative">
-        <div className={styles.lines}></div>
+        <div className={styles.lines + " lines"}></div>
         <Swiper
-          className={styles.slider}
-          spaceBetween={10}
+          className={styles.slider + " slider"}
+          spaceBetween={5}
           slidesPerView={4}
           loop={true}
           autoplay={{
@@ -25,14 +25,16 @@ const Providers = () => {
             disableOnInteraction: false,
           }}
           onInit={(swiper) => {
-            document.querySelector(".provider-slide")?.classList.add("active");
+            document.querySelector(".provider-main")?.classList.add("active");
           }}
           breakpoints={{
             992: {
               slidesPerView: 6,
+              spaceBetween: 10,
             },
             1400: {
               slidesPerView: 8,
+              spaceBetween: 10,
             },
           }}
         >
