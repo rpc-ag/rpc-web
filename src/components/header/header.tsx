@@ -12,10 +12,12 @@ const Header = () => {
           <nav className={styles.menu}>
             <ul>
               <li>
-                <a href="#">Docs</a>
+                <a href="https://docs.rpc.ag/" target={"_blank"}>
+                  Docs
+                </a>
               </li>
               <li>
-                <a href="#">
+                <a href="https://github.com/rpc-ag" target={"_blank"}>
                   <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fill-rule="evenodd"
@@ -28,7 +30,9 @@ const Header = () => {
                 </a>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <a href="mailto:info@rpc.ag" target={"_blank"}>
+                  Contact Us
+                </a>
               </li>
             </ul>
           </nav>
