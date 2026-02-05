@@ -1,20 +1,15 @@
 import "@styles/app.scss";
 
-import { Header } from "@components";
-import { Footer } from "@components";
-
 export const metadata = {
-  title: "RPC.ag - Blockchain Infrastructure for Developers",
-  description: "RPC.ag is a comprehensive blockchain infrastructure platform designed to support developers and project owners in the blockchain space. Join our community today and start building the next generation of blockchain applications with RPC.ag.",
+  title: "rpc.ag: Interactive Specification",
+  description: "rpc.ag interactive gateway specification and simulator.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <Header />
+      <body className="bg-stone-50 text-gray-800 font-sans leading-relaxed selection:bg-blue-100 selection:text-blue-900">
         {children}
-        <Footer />
       </body>
     </html>
   );
