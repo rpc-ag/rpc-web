@@ -47,9 +47,9 @@ const FLOW_STEPS = [
 const CAPABILITIES: FeatureCardProps[] = [
   {
     label: "CLI",
-    title: "Self-Hosted CLI Core",
+    title: "Developer-First CLI",
     description:
-      "Full CLI toolchain including login, http, tcp, status, and logout commands. Actionable, miette-style diagnostic errors guide operators.",
+      "Share localhost in seconds with login, http, tcp, status, and logout commands. Actionable diagnostics help developers move fast.",
   },
   {
     label: "API",
@@ -61,13 +61,13 @@ const CAPABILITIES: FeatureCardProps[] = [
     label: "OPS",
     title: "Reliability Guardrails",
     description:
-      "Actor model architecture with mailbox capacity profiles, ingress fairness limiters, saturation guardrails, and jittered reconnect backoffs.",
+      "Actor model architecture with mailbox capacity profiles, fairness limiters, saturation guardrails, and jittered reconnect backoffs.",
   },
   {
     label: "OBS",
-    title: "Operator Observability",
+    title: "Debug-Friendly Observability",
     description:
-      "Export Prometheus metrics, trace latency decomposition, and monitor live status via a built-in ratatui TUI dashboard.",
+      "Export Prometheus metrics, trace latency decomposition, and monitor live tunnel status with the built-in ratatui dashboard.",
   },
   {
     label: "SEC",
@@ -144,13 +144,13 @@ export default function GripPage() {
                 <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6 leading-[1.1]">
                   The Open-Source{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                    Tunneling Refinery.
+                    Local Sharing Proxy.
                   </span>
                 </h1>
 
                 <p className="text-xl text-gray-600 mb-10">
-                  A self-hosted, deterministic tunneling system written in Rust. The high-performance alternative to
-                  ngrok, bringing explicit CLI + Edge architecture and operator-first control to your local services.
+                  Grip is built for developers who need to quickly share local apps. Run a single command, get a public
+                  URL, and keep the option to self-host edge + control-plane when your team needs deeper control.
                 </p>
 
                 <a
@@ -209,8 +209,8 @@ export default function GripPage() {
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">End-to-End Determinism</h2>
               <p className="text-gray-600 text-lg">
-                Grip separates the edge control-plane from the CLI client. State is predictable, routing is
-                transparent, and everything is driven by strict API contracts.
+                Grip keeps local sharing simple for developers while separating CLI and edge for predictable behavior
+                and transparent routing.
               </p>
             </div>
 
@@ -260,10 +260,10 @@ Tunnel created: https://app-123.rpc.ag/`}
         <section id="features" className="py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-16 max-w-3xl">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Core Architecture</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Built for Fast Local Proxying</h2>
               <p className="text-gray-600 text-lg">
-                Engineered for high-throughput, self-hosted environments. Designed with deep runtime resilience and
-                observability primitives.
+                Optimized for quick local sharing during development, with reliability and observability primitives for
+                teams that self-host.
               </p>
             </div>
 
@@ -322,7 +322,7 @@ Tunnel created: https://app-123.rpc.ag/`}
 
         <footer className="bg-white border-t border-gray-200 py-12">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Ready to inspect the core?</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Ready to share your localhost?</h2>
             <div className="flex justify-center mb-12">
               <a
                 href="https://github.com/rpc-ag/grip"

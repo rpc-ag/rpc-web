@@ -15,8 +15,8 @@ const PRODUCTS = [
     href: "/grip",
     badge: "Tunneling",
     description:
-      "Self-hosted tunneling system for operators who need deterministic control APIs, edge routing, and reliability guardrails.",
-    points: ["CLI + edge architecture", "Deterministic control-plane contracts", "Operator-first status and metrics"],
+      "Developer-first quick proxy for sharing localhost services in seconds, with optional self-hosted edge control.",
+    points: ["Share localhost instantly", "Public URLs for demos and webhooks", "Self-host when your team needs control"],
     cta: "Open Grip",
   },
 ] as const;
@@ -38,7 +38,7 @@ export default function Home() {
             </h1>
             <p className="text-xl text-gray-600 mb-10">
               rpc.ag builds open-source infrastructure products focused on Solana: RPC gateways, proxies, and load balancers,
-              with operator-grade reliability and observability.
+              with developer-first workflows and operator-grade reliability.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
@@ -67,7 +67,7 @@ export default function Home() {
         <section className="mb-10">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Products</h2>
           <p className="text-lg text-gray-600 max-w-3xl">
-            Gateway and Grip are focused tools in the same direction: dependable open-source infrastructure for Solana builders and operators.
+            Gateway and Grip are focused tools in the same direction: dependable open-source infrastructure for Solana developers and operators.
           </p>
         </section>
 
@@ -105,7 +105,7 @@ export default function Home() {
 
       <footer className="bg-white border-t border-gray-200 py-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-gray-500 text-sm">Built in open source for Solana infrastructure operators and teams.</p>
+          <p className="text-gray-500 text-sm">Built in open source for Solana developers, infrastructure operators, and teams.</p>
         </div>
       </footer>
 
