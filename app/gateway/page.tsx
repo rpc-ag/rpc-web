@@ -1,6 +1,4 @@
 "use client";
-
-/* eslint-disable @next/next/no-img-element */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Script from "next/script";
 import SiteHeader from "@components/site-header";
@@ -32,19 +30,19 @@ export default function Home() {
       id: "init-1",
       time: "",
       message: "// System Ready. RPC Gateway initialized.",
-      colorClass: "text-gray-500 opacity-50",
+      colorClass: "text-[var(--color-muted)] opacity-50",
     },
     {
       id: "init-2",
       time: "",
       message: "// Connected to Postgres DB.",
-      colorClass: "text-gray-500 opacity-50",
+      colorClass: "text-[var(--color-muted)] opacity-50",
     },
     {
       id: "init-3",
       time: "",
       message: "// Clickhouse Analytics stream active.",
-      colorClass: "text-gray-500 opacity-50",
+      colorClass: "text-[var(--color-muted)] opacity-50",
     },
   ]);
 
@@ -77,10 +75,11 @@ export default function Home() {
           {
             label: "Latency (ms)",
             data: [45, 50, 42, 120, 60, 45, 48, 55, 40, 43],
-            borderColor: "#3b82f6",
-            backgroundColor: "rgba(59, 130, 246, 0.1)",
-            fill: true,
-            tension: 0.4,
+            borderColor: "#f57600",
+            backgroundColor: "rgba(245, 118, 0, 0.08)",
+            pointRadius: 0,
+            fill: false,
+            tension: 0.2,
           },
         ],
       },
@@ -92,16 +91,23 @@ export default function Home() {
           tooltip: {
             mode: "index",
             intersect: false,
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-            titleColor: "#1f2937",
-            bodyColor: "#1f2937",
-            borderColor: "#e5e7eb",
-            borderWidth: 1,
+            backgroundColor: "rgba(44, 63, 80, 0.95)",
+            titleColor: "#ecf0f1",
+            bodyColor: "#ecf0f1",
+            borderColor: "#f57600",
+            borderWidth: 2,
           },
         },
         scales: {
-          y: { beginAtZero: true, grid: { color: "#f3f4f6" } },
-          x: { grid: { display: false } },
+          y: {
+            beginAtZero: true,
+            ticks: { color: "#2c3f50" },
+            grid: { color: "rgba(44, 63, 80, 0.22)" },
+          },
+          x: {
+            ticks: { color: "#2c3f50" },
+            grid: { color: "rgba(44, 63, 80, 0.12)" },
+          },
         },
       },
     });
@@ -124,19 +130,19 @@ export default function Home() {
     if (currentMethod === "getAccountInfo") {
       return (
         <>
-          <span className="text-blue-600 font-bold">Smart Logic:</span> Reading data uses Round Robin to save costs.
+          <span className="text-[var(--color-info)] font-bold">Smart Logic:</span> Reading data uses Round Robin to save costs.
         </>
       );
     }
 
     return (
       <>
-        <span className="text-blue-600 font-bold">Smart Logic:</span> Transactions use Parallel Broadcast for max speed &amp; inclusion.
+        <span className="text-[var(--color-info)] font-bold">Smart Logic:</span> Transactions use Parallel Broadcast for max speed &amp; inclusion.
       </>
     );
   }, [currentMethod, currentStrategy]);
 
-  const addLog = useCallback((message: string, colorClass = "text-gray-300") => {
+  const addLog = useCallback((message: string, colorClass = "text-[#d7dfdf]") => {
     const time = new Date().toISOString().split("T")[1].split(".")[0];
     setLogs((prev) => [
       ...prev,
@@ -179,9 +185,9 @@ export default function Home() {
     path.style.strokeDashoffset = "0";
 
     setTimeout(() => {
-      card.classList.add("border-blue-500", "bg-blue-50");
+      card.classList.add("border-orange-500", "bg-[var(--color-panel-strong)]");
       setTimeout(() => {
-        card?.classList.remove("border-blue-500", "bg-blue-50");
+        card?.classList.remove("border-orange-500", "bg-[var(--color-panel-strong)]");
         if (path) path.style.strokeDashoffset = "100";
       }, 500);
     }, 300);
@@ -200,7 +206,7 @@ export default function Home() {
 
       let msg = `✔ 200 OK via ${providerName} (${latency}ms)`;
       if (strategy === "parallel") msg += " [Winner of 3]";
-      addLog(msg, "text-green-400");
+      addLog(msg, "text-[#3cff00]");
 
       updateChart(latency);
     },
@@ -247,95 +253,76 @@ export default function Home() {
         onLoad={() => setIsChartReady(true)}
       />
 
-      <div className="bg-stone-50 text-gray-800 font-sans leading-relaxed selection:bg-blue-100 selection:text-blue-900">
+      <div className="site-surface min-h-screen">
         <SiteHeader />
 
-        <header id="vision" className="relative overflow-hidden pt-16 pb-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide uppercase mb-6 border border-blue-100">
-                Open Source Initiative
-              </div>
-              <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
-                Democratizing the{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                  Solana Gateway
-                </span>
+        <header id="vision" className="industrial-grid border-b-2 border-[var(--color-border)] py-14">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="brand-card p-8 md:p-10 text-center max-w-5xl mx-auto">
+              <span className="brand-chip">Open Source Initiative</span>
+              <h1 className="mt-6 text-4xl md:text-6xl font-black uppercase leading-[0.95]">
+                Solana RPC
+                <br />
+                <span className="text-[var(--color-accent)]">Gateway Refinery</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-10">
-                "Reliable RPC infrastructure is oxygen." <strong>rpc.ag</strong> is the open-source refinery. A
-                high-performance gateway built on <strong>Rust</strong>, powered by <strong>Postgres</strong>, and
-                analyzed via <strong>Clickhouse</strong>.
+              <p className="mt-6 text-lg text-[var(--color-muted)] max-w-3xl mx-auto">
+                Reliable RPC infrastructure is oxygen. rpc.ag is the open-source refinery: a high-performance gateway built on Rust, backed by
+                Postgres, and analyzed through Clickhouse.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                  <span className="text-sm font-medium text-gray-700">Multi-Provider Aggregation</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                  <span className="text-sm font-medium text-gray-700">Intelligent Load Balancing</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                  <span className="text-sm font-medium text-gray-700">Deep Packet Analytics</span>
-                </div>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <div className="brand-chip">Multi-provider aggregation</div>
+                <div className="brand-chip">Intelligent load balancing</div>
+                <div className="brand-chip">Deep packet analytics</div>
               </div>
             </div>
-          </div>
-          <div className="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full z-0 pointer-events-none opacity-40">
-            <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-            <div className="absolute top-20 right-1/4 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 pb-24">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 py-16">
           <section id="gateway-sim" className="scroll-mt-24">
             <div className="mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">RPC Gateway Logic Engine</h2>
-              <p className="text-lg text-gray-600 max-w-4xl">
-                The core of <strong>rpc.ag</strong> is the <strong>Rust-based Load Balancer</strong>. It abstracts the
-                complexity of managing multiple RPC providers (Helius, Triton, QuickNode, etc.). Below is an
-                interactive simulation of how our "Method-Based Routing" functions compared to standard Failover
-                strategies.
+              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">RPC Gateway Logic Engine</h2>
+              <p className="mt-4 text-lg text-[var(--color-muted)] max-w-4xl">
+                This interactive panel models method-based routing and failover behavior across providers. Use it to inspect request strategy,
+                winning route, and latency behavior under changing traffic profiles.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
-                <div className="p-8 bg-gray-50">
-                  <h3 className="font-bold text-gray-900 mb-6 flex items-center gap-2">
-                    <span>⚙️</span> Configuration
+            <div className="brand-card overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-3 divide-y-2 lg:divide-y-0 lg:divide-x-2 divide-[var(--color-border)]">
+                <div className="p-8 bg-[var(--color-panel-strong)]">
+                  <h3 className="mb-6 flex items-center gap-2 font-black uppercase tracking-[0.08em] text-[var(--color-text)]">
+                    <span>⚙</span> Configuration
                   </h3>
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Simulation Mode</label>
+                      <label className="mb-2 block text-sm font-semibold text-[var(--color-text)]">Simulation Mode</label>
                       <select
                         id="strategySelect"
                         value={currentStrategy}
                         onChange={(event) => setCurrentStrategy(event.target.value as Strategy)}
-                        className="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                        className="w-full border-2 border-[var(--color-border)] bg-[var(--color-panel)] px-4 py-2 outline-none focus:border-[var(--color-accent)]"
                       >
                         <option value="round-robin">Round Robin (Sequential)</option>
                         <option value="parallel">Parallel (Fastest Wins)</option>
                         <option value="smart">Smart Routing (Method Based)</option>
                       </select>
-                      <p id="strategyDesc" className="text-xs text-gray-500 mt-2">
+                      <p id="strategyDesc" className="mt-2 text-xs text-[var(--color-muted)]">
                         {strategyDescription}
                       </p>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Request Type</label>
+                      <label className="mb-2 block text-sm font-semibold text-[var(--color-text)]">Request Type</label>
                       <div className="grid grid-cols-2 gap-2">
                         <button
                           onClick={() => setCurrentMethod("getAccountInfo")}
                           id="btn-get"
-                          className={`method-btn px-3 py-2 text-sm border rounded-md font-medium text-center hover:bg-blue-200 transition-all ${
+                          className={`px-3 py-2 text-sm border-2 font-semibold text-center uppercase tracking-[0.05em] transition-none ${
                             currentMethod === "getAccountInfo"
-                              ? "bg-blue-100 text-blue-700 border-blue-200"
-                              : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                              ? "bg-[var(--color-panel)] text-[var(--color-accent)] border-[var(--color-accent)]"
+                              : "bg-[var(--color-panel)] text-[var(--color-muted)] border-[var(--color-border)]"
                           }`}
                         >
                           getAccountInfo
@@ -343,10 +330,10 @@ export default function Home() {
                         <button
                           onClick={() => setCurrentMethod("sendTransaction")}
                           id="btn-send"
-                          className={`method-btn px-3 py-2 text-sm border rounded-md font-medium text-center transition-all ${
+                          className={`px-3 py-2 text-sm border-2 font-semibold text-center uppercase tracking-[0.05em] transition-none ${
                             currentMethod === "sendTransaction"
-                              ? "bg-blue-100 text-blue-700 border-blue-200"
-                              : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                              ? "bg-[var(--color-panel)] text-[var(--color-accent)] border-[var(--color-accent)]"
+                              : "bg-[var(--color-panel)] text-[var(--color-muted)] border-[var(--color-border)]"
                           }`}
                         >
                           sendTransaction
@@ -356,152 +343,154 @@ export default function Home() {
 
                     <button
                       onClick={simulateRequest}
-                      className="w-full mt-4 bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2"
+                      className="brand-btn brand-btn-primary w-full justify-center py-3"
                     >
-                      <span>🚀</span> Send Request
+                      Send Request
                     </button>
 
-                    <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                      <h4 className="text-xs font-bold text-blue-800 uppercase mb-2">Live Stats</h4>
+                    <div className="mt-8 border-2 border-[var(--color-border)] bg-[var(--color-panel)] p-4">
+                      <h4 className="mb-2 text-xs font-black uppercase tracking-[0.08em] text-[var(--color-rust)]">Live Stats</h4>
                       <div className="flex justify-between items-end">
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-900" id="stat-requests">
+                          <div className="text-2xl font-black text-[var(--color-text)]" id="stat-requests">
                             {totalRequests.toLocaleString()}
                           </div>
-                          <div className="text-xs text-blue-600">Total Req</div>
+                          <div className="text-xs uppercase tracking-[0.08em] text-[var(--color-muted)]">Total Req</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-900" id="stat-latency">
+                          <div className="text-2xl font-black text-[var(--color-text)]" id="stat-latency">
                             {avgLatency}ms
                           </div>
-                          <div className="text-xs text-blue-600">Avg Latency</div>
+                          <div className="text-xs uppercase tracking-[0.08em] text-[var(--color-muted)]">Avg Latency</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-green-700" id="stat-success">
+                          <div className="text-2xl font-black text-[var(--color-success)]" id="stat-success">
                             100%
                           </div>
-                          <div className="text-xs text-green-600">Success Rate</div>
+                          <div className="text-xs uppercase tracking-[0.08em] text-[var(--color-muted)]">Success</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-8 lg:col-span-2 relative bg-white">
-                  <div className="absolute top-4 right-4 text-xs text-gray-400 font-mono">Architecture Visualization</div>
+                <div className="relative bg-[var(--color-panel)] p-8 lg:col-span-2">
+                  <div className="absolute right-4 top-4 font-mono text-xs uppercase tracking-[0.08em] text-[var(--color-muted)]">
+                    Architecture Visualization
+                  </div>
 
-                  <div className="h-full flex flex-col justify-center">
-                    <div className="flex items-center justify-between mb-12 relative">
-                      <div className="flex flex-col items-center z-10 w-20">
-                        <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
+                  <div className="flex h-full flex-col justify-center">
+                    <div className="relative mb-12 flex items-center justify-between">
+                      <div className="z-10 flex w-20 flex-col items-center">
+                        <div className="flex h-12 w-12 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-shell)] text-xl text-[var(--color-ink-inverse)]">
                           👤
                         </div>
-                        <span className="text-xs font-bold text-gray-600 mt-2">Client</span>
+                        <span className="mt-2 text-xs font-black uppercase tracking-[0.08em] text-[var(--color-muted)]">Client</span>
                       </div>
 
-                      <div className="flex-1 h-1 bg-gray-200 mx-2 relative overflow-hidden rounded-full">
-                        <div id="request-packet" className="absolute top-0 left-0 h-full w-12 bg-blue-500 rounded-full hidden"></div>
+                      <div className="relative mx-2 h-1 flex-1 overflow-hidden bg-[var(--color-panel-strong)]">
+                        <div id="request-packet" className="hidden absolute left-0 top-0 h-full w-12 bg-[var(--color-info)]" />
                       </div>
 
-                      <div className="flex flex-col items-center z-10 w-24">
+                      <div className="z-10 flex w-24 flex-col items-center">
                         <div
                           id="lb-node"
                           ref={lbNodeRef}
-                          className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-xl border-4 border-blue-100 transition-all duration-300"
+                          className="flex h-16 w-16 items-center justify-center border-4 border-[var(--color-border)] bg-[var(--color-accent)] text-2xl text-[var(--color-ink-inverse)] transition-none duration-300"
                         >
-                          ⚖️
+                          ⚖
                         </div>
-                        <span className="text-xs font-bold text-blue-700 mt-2">RPC Gateway</span>
+                        <span className="mt-2 text-xs font-black uppercase tracking-[0.08em] text-[var(--color-accent)]">RPC Gateway</span>
                       </div>
 
-                      <div className="flex-1 flex relative mx-2 h-32 items-center">
-                        <svg className="absolute top-0 left-0 w-full h-full" style={{ pointerEvents: "none" }}>
-                          <path d="M0,64 C50,64 50,16 100,16" fill="none" stroke="#e5e7eb" strokeWidth="2" />
+                      <div className="relative mx-2 flex h-32 flex-1 items-center">
+                        <svg className="absolute left-0 top-0 h-full w-full" style={{ pointerEvents: "none" }}>
+                          <path d="M0,64 C50,64 50,16 100,16" fill="none" stroke="rgba(44, 63, 80, 0.35)" strokeWidth="2" />
                           <path
                             id="path-top"
                             ref={pathTopRef}
                             d="M0,64 C50,64 50,16 100,16"
                             fill="none"
-                            stroke="#3b82f6"
+                            stroke="#f57600"
                             strokeWidth="2"
                             strokeDasharray="100"
                             strokeDashoffset="100"
-                            className="transition-all duration-500"
+                            className="transition-none duration-500"
                           />
 
-                          <path d="M0,64 L100,64" fill="none" stroke="#e5e7eb" strokeWidth="2" />
+                          <path d="M0,64 L100,64" fill="none" stroke="rgba(44, 63, 80, 0.35)" strokeWidth="2" />
                           <path
                             id="path-mid"
                             ref={pathMidRef}
                             d="M0,64 L100,64"
                             fill="none"
-                            stroke="#3b82f6"
+                            stroke="#f57600"
                             strokeWidth="2"
                             strokeDasharray="100"
                             strokeDashoffset="100"
-                            className="transition-all duration-500"
+                            className="transition-none duration-500"
                           />
 
-                          <path d="M0,64 C50,64 50,112 100,112" fill="none" stroke="#e5e7eb" strokeWidth="2" />
+                          <path d="M0,64 C50,64 50,112 100,112" fill="none" stroke="rgba(44, 63, 80, 0.35)" strokeWidth="2" />
                           <path
                             id="path-bot"
                             ref={pathBotRef}
                             d="M0,64 C50,64 50,112 100,112"
                             fill="none"
-                            stroke="#3b82f6"
+                            stroke="#f57600"
                             strokeWidth="2"
                             strokeDasharray="100"
                             strokeDashoffset="100"
-                            className="transition-all duration-500"
+                            className="transition-none duration-500"
                           />
                         </svg>
                       </div>
 
-                      <div className="flex flex-col gap-4 z-10 w-32">
+                      <div className="z-10 flex w-32 flex-col gap-4">
                         <div
                           id="provider-1"
                           ref={provider1Ref}
-                          className="provider-card p-3 bg-white border-2 border-gray-100 rounded-lg shadow-sm flex items-center gap-3 transition-all duration-300"
+                          className="provider-card flex items-center gap-3 border-2 border-[var(--color-border)] bg-[var(--color-panel)] p-3 transition-none duration-300"
                         >
-                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          <div className="h-2 w-2 bg-[var(--color-success)]" />
                           <div>
-                            <div className="text-xs font-bold text-gray-800">Provider A</div>
-                            <div className="text-[10px] text-gray-500">Helius</div>
+                            <div className="text-xs font-black uppercase tracking-[0.06em] text-[var(--color-text)]">Provider A</div>
+                            <div className="text-[10px] text-[var(--color-muted)]">Helius</div>
                           </div>
                         </div>
                         <div
                           id="provider-2"
                           ref={provider2Ref}
-                          className="provider-card p-3 bg-white border-2 border-gray-100 rounded-lg shadow-sm flex items-center gap-3 transition-all duration-300"
+                          className="provider-card flex items-center gap-3 border-2 border-[var(--color-border)] bg-[var(--color-panel)] p-3 transition-none duration-300"
                         >
-                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          <div className="h-2 w-2 bg-[var(--color-success)]" />
                           <div>
-                            <div className="text-xs font-bold text-gray-800">Provider B</div>
-                            <div className="text-[10px] text-gray-500">Triton</div>
+                            <div className="text-xs font-black uppercase tracking-[0.06em] text-[var(--color-text)]">Provider B</div>
+                            <div className="text-[10px] text-[var(--color-muted)]">Triton</div>
                           </div>
                         </div>
                         <div
                           id="provider-3"
                           ref={provider3Ref}
-                          className="provider-card p-3 bg-white border-2 border-gray-100 rounded-lg shadow-sm flex items-center gap-3 transition-all duration-300"
+                          className="provider-card flex items-center gap-3 border-2 border-[var(--color-border)] bg-[var(--color-panel)] p-3 transition-none duration-300"
                         >
-                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          <div className="h-2 w-2 bg-[var(--color-success)]" />
                           <div>
-                            <div className="text-xs font-bold text-gray-800">Provider C</div>
-                            <div className="text-[10px] text-gray-500">QuickNode</div>
+                            <div className="text-xs font-black uppercase tracking-[0.06em] text-[var(--color-text)]">Provider C</div>
+                            <div className="text-[10px] text-[var(--color-muted)]">QuickNode</div>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <div
-                      className="bg-gray-900 rounded-lg p-4 font-mono text-xs text-green-400 h-32 overflow-y-auto shadow-inner border border-gray-700"
+                      className="h-32 overflow-y-auto border-2 border-[var(--color-border)] bg-[var(--color-shell)] p-4 font-mono text-xs text-[#d7dfdf]"
                       id="console-logs"
                       ref={logContainerRef}
                     >
                       {logs.map((entry) => (
-                        <div key={entry.id} className={`font-mono mb-1 ${entry.colorClass}`}>
-                          {entry.time ? <span className="opacity-50">[{entry.time}]</span> : null} {entry.message}
+                        <div key={entry.id} className={`mb-1 font-mono ${entry.colorClass}`}>
+                          {entry.time ? <span className="opacity-60">[{entry.time}]</span> : null} {entry.message}
                         </div>
                       ))}
                     </div>
@@ -512,51 +501,49 @@ export default function Home() {
           </section>
 
           <section id="observability" className="scroll-mt-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Deep Observability</h2>
-                <p className="text-gray-600 mb-6">
-                  We prioritize giving developers total visibility. We use <strong>Clickhouse</strong> to store
-                  high-cardinality data for instant analytics on every single request.
+                <h2 className="text-3xl md:text-4xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">Deep Observability</h2>
+                <p className="mt-4 text-[var(--color-muted)]">
+                  Gateway exposes full request traces and latency behavior so operators can root-cause issues quickly under production load.
                 </p>
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">
-                      ✓
+                <ul className="mt-6 space-y-4">
+                  <li className="flex items-start gap-3 text-[var(--color-text)]">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-[10px] font-black">
+                      +
                     </span>
-                    <span className="text-gray-700">
+                    <span>
                       <strong>Full Request Logging:</strong> Capture bodies, headers, and responses.
                     </span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">
-                      ✓
+                  <li className="flex items-start gap-3 text-[var(--color-text)]">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-[10px] font-black">
+                      +
                     </span>
-                    <span className="text-gray-700">
+                    <span>
                       <strong>Security Fingerprinting:</strong> Log IP addresses and TLS fingerprints to block abuse.
                     </span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">
-                      ✓
+                  <li className="flex items-start gap-3 text-[var(--color-text)]">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-[10px] font-black">
+                      +
                     </span>
-                    <span className="text-gray-700">
+                    <span>
                       <strong>Performance Metrics:</strong> Breakdown latency by provider, method, and region.
                     </span>
                   </li>
                 </ul>
 
-                <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
-                  <h4 className="font-bold text-purple-900 mb-2">Why Clickhouse?</h4>
-                  <p className="text-sm text-purple-800">
-                    Postgres is great for user data (Accounts, Keys), but Clickhouse is essential for the sheer volume
-                    of logs (Millions of RPC calls) required for real-time analytics without slowing down the gateway.
+                <div className="mt-8 border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] p-6">
+                  <h4 className="font-black uppercase tracking-[0.08em] text-[var(--color-rust)]">Why Clickhouse?</h4>
+                  <p className="mt-2 text-sm text-[var(--color-muted)]">
+                    Postgres is ideal for account state and configuration. Clickhouse handles millions of RPC log events for real-time analytics.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Global Request Latency (ms)</h3>
+              <div className="brand-card p-6">
+                <h3 className="mb-4 text-sm font-black uppercase tracking-[0.1em] text-[var(--color-rust)]">Global Request Latency (ms)</h3>
                 <div className="chart-container">
                   <canvas id="observabilityChart" ref={chartCanvasRef}></canvas>
                 </div>
@@ -565,121 +552,122 @@ export default function Home() {
           </section>
 
           <section id="stack" className="scroll-mt-24">
-            <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">The Architecture Stack</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-orange-200 transition-all group">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                  ⚙️
+            <h2 className="text-center text-3xl md:text-4xl font-black uppercase tracking-[0.02em] text-[var(--color-text)] mb-10">
+              Architecture Stack
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="brand-card p-8">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-2xl">
+                  ⚙
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Rust Server</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  The "Gateway". Handles incoming traffic, TLS termination, and strategy execution.
+                <h3 className="text-xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">Rust Server</h3>
+                <p className="mt-3 text-sm text-[var(--color-muted)]">
+                  Handles incoming traffic, TLS termination, and strategy execution with predictable low-level performance.
                 </p>
-                <ul className="text-sm text-gray-500 space-y-2">
-                  <li>• Memory safe &amp; blazing fast</li>
-                  <li>• Async Tokio runtime</li>
-                  <li>• Custom Load Balancing logic</li>
+                <ul className="mt-4 space-y-2 text-sm text-[var(--color-muted)]">
+                  <li>Memory safe and fast</li>
+                  <li>Async Tokio runtime</li>
+                  <li>Custom load balancing logic</li>
                 </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all group">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <div className="brand-card p-8">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-2xl">
                   🐘
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">PostgreSQL</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  The "Source of Truth". Stores user configurations, API keys, and persistent state.
+                <h3 className="text-xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">PostgreSQL</h3>
+                <p className="mt-3 text-sm text-[var(--color-muted)]">
+                  Source of truth for users, API keys, and routing configuration.
                 </p>
-                <ul className="text-sm text-gray-500 space-y-2">
-                  <li>• Relational data integrity</li>
-                  <li>• User Accounts &amp; Projects</li>
-                  <li>• Provider configurations</li>
+                <ul className="mt-4 space-y-2 text-sm text-[var(--color-muted)]">
+                  <li>Relational data integrity</li>
+                  <li>User accounts and projects</li>
+                  <li>Provider configuration state</li>
                 </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-yellow-200 transition-all group">
-                <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <div className="brand-card p-8">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-2xl">
                   📊
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Clickhouse</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  The "Analyst". Ingests massive streams of logs for real-time querying.
+                <h3 className="text-xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">Clickhouse</h3>
+                <p className="mt-3 text-sm text-[var(--color-muted)]">
+                  High-cardinality analytics on production traffic for debugging and optimization.
                 </p>
-                <ul className="text-sm text-gray-500 space-y-2">
-                  <li>• Columnar storage for speed</li>
-                  <li>• Peta-byte scale logging</li>
-                  <li>• Instant aggregate queries</li>
+                <ul className="mt-4 space-y-2 text-sm text-[var(--color-muted)]">
+                  <li>Columnar storage</li>
+                  <li>Massive log ingest</li>
+                  <li>Fast aggregate queries</li>
                 </ul>
               </div>
             </div>
           </section>
 
-          <section className="bg-gray-900 text-white rounded-3xl p-8 md:p-16 relative overflow-hidden">
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+          <section className="brand-terminal p-8 md:p-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
-                <h2 className="text-3xl font-bold mb-6">Developer Experience First</h2>
-                <p className="text-gray-400 mb-8">We aren't just building infrastructure; we are building tools.</p>
-                <div className="space-y-6">
+                <h2 className="text-3xl font-black uppercase tracking-[0.02em] text-[var(--color-ink-inverse)]">Developer Experience First</h2>
+                <p className="mt-4 text-[#d7dfdf]">Infrastructure is only useful when operators can reason about it quickly.</p>
+                <div className="mt-8 space-y-6">
                   <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold">1</div>
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-accent)] font-black text-[var(--color-ink-inverse)]">
+                      1
+                    </div>
                     <div>
-                      <h3 className="font-bold text-lg">Integrated Playground</h3>
-                      <p className="text-sm text-gray-400 mt-1">
-                        Build, save, and share RPC requests. Export to cURL or TypeScript instantly. No more boilerplate.
+                      <h3 className="text-lg font-black uppercase tracking-[0.02em] text-[var(--color-ink-inverse)]">Integrated Playground</h3>
+                      <p className="mt-1 text-sm text-[#d7dfdf]">
+                        Build, save, and share RPC requests. Export to cURL or TypeScript without boilerplate.
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold">2</div>
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-info)] font-black text-[var(--color-ink-inverse)]">
+                      2
+                    </div>
                     <div>
-                      <h3 className="font-bold text-lg">Devnet Support</h3>
-                      <p className="text-sm text-gray-400 mt-1">
-                        Test without fear. Full support for Devnet clusters with integrated faucets, allowing teams to
-                        simulate production environments for free.
+                      <h3 className="text-lg font-black uppercase tracking-[0.02em] text-[var(--color-ink-inverse)]">Devnet Support</h3>
+                      <p className="mt-1 text-sm text-[#d7dfdf]">
+                        Run safe experiments with full support for devnet clusters and failure simulations.
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 font-mono text-sm shadow-2xl">
-                <div className="flex gap-2 mb-4 border-b border-gray-700 pb-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="ml-auto text-xs text-gray-500">Playground.ts</span>
+
+              <div className="border-2 border-[var(--color-border)] bg-[rgba(0,0,0,0.2)] p-6 font-mono text-sm text-[var(--color-ink-inverse)]">
+                <div className="mb-4 flex gap-2 border-b border-dashed border-[#d7dfdf] pb-2">
+                  <div className="h-3 w-3 border border-[var(--color-border)] bg-[var(--color-danger)]" />
+                  <div className="h-3 w-3 border border-[var(--color-border)] bg-[var(--color-accent)]" />
+                  <div className="h-3 w-3 border border-[var(--color-border)] bg-[var(--color-success)]" />
+                  <span className="ml-auto text-xs uppercase tracking-[0.08em]">playground.ts</span>
                 </div>
-                <div className="text-blue-300">const</div> <div className="inline text-yellow-300">connection</div> ={" "}
-                <div className="inline text-blue-300">new</div> <div className="inline text-green-300">Connection</div>(
-                <span className="text-white">"https://rpc.ag"</span>);<br />
+                <div className="text-[var(--color-info)]">const</div> connection = <span className="text-[var(--color-success)]">new Connection</span>(
+                <span className="text-[#ffffff]">"https://rpc.ag"</span>);
                 <br />
-                <div className="text-gray-500">// Smart Routing handles the rest</div>
-                <div className="text-blue-300">await</div> <div className="inline text-yellow-300">connection</div>.
-                <div className="inline text-purple-300">getAccountInfo</div>(publicKey);<br />
                 <br />
-                <div className="text-gray-500">// Sending TX broadcasts to all providers</div>
-                <div className="text-blue-300">await</div> <div className="inline text-yellow-300">connection</div>.
-                <div className="inline text-purple-300">sendTransaction</div>(tx);<br />
+                <div className="text-[#d7dfdf]">// Smart Routing handles the rest</div>
+                <span className="text-[var(--color-info)]">await</span> connection.getAccountInfo(publicKey);
                 <br />
-                <div className="p-3 bg-black/50 rounded mt-4 border-l-2 border-green-500">
-                  <span className="text-green-400">➜ Success:</span> 200 OK<br />
-                  <span className="text-gray-400">Latency:</span> 45ms<br />
-                  <span className="text-gray-400">Provider:</span> Helius (Fastest)
+                <br />
+                <div className="text-[#d7dfdf]">// Transactions broadcast on parallel strategy</div>
+                <span className="text-[var(--color-info)]">await</span> connection.sendTransaction(tx);
+                <br />
+                <br />
+                <div className="border-l-2 border-[var(--color-success)] bg-[rgba(0,0,0,0.24)] p-3">
+                  <span className="text-[var(--color-success)]">Success:</span> 200 OK
+                  <br />
+                  <span className="text-[#d7dfdf]">Latency:</span> 45ms
+                  <br />
+                  <span className="text-[#d7dfdf]">Provider:</span> Helius (Fastest)
                 </div>
               </div>
             </div>
-
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
           </section>
         </main>
 
-        <footer className="bg-white border-t border-gray-200 py-12">
+        <footer className="border-t-2 border-[var(--color-border)] bg-[var(--color-shell)] py-10">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="text-gray-500 text-sm mb-4">Built for the Open Source Community.</p>
-            <div className="flex justify-center gap-6 opacity-60">
-              <span className="text-2xl">🦀</span>
-              <span className="text-2xl">⚡</span>
-              <span className="text-2xl">🐘</span>
-            </div>
+            <p className="font-mono text-xs uppercase tracking-[0.08em] text-[var(--color-panel)]">Built for the Open Source Community.</p>
           </div>
         </footer>
       </div>
@@ -690,14 +678,14 @@ export default function Home() {
           height: 8px;
         }
         ::-webkit-scrollbar-track {
-          background: #f1f1f1;
+          background: var(--color-panel-strong);
         }
         ::-webkit-scrollbar-thumb {
-          background: #c5c5c5;
-          border-radius: 4px;
+          background: var(--color-rust);
+          border-radius: 2px;
         }
         ::-webkit-scrollbar-thumb:hover {
-          background: #a8a8a8;
+          background: var(--color-accent);
         }
 
         .chart-container {
@@ -714,61 +702,18 @@ export default function Home() {
           }
         }
 
-        .fade-in {
-          animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         .pulse-active {
-          animation: pulse 1.5s infinite;
-          border-color: #3b82f6;
-          background-color: #eff6ff;
+          animation: pulse 300ms steps(2, end);
+          border-color: var(--color-accent);
+          background-color: var(--color-panel-strong);
         }
         @keyframes pulse {
           0% {
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
-          }
-          70% {
-            box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            transform: translate(0, 0);
           }
           100% {
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            transform: translate(2px, 2px);
           }
-        }
-
-        .animate-blob {
-          animation: blob 10s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-
-        body {
-          background: #fafaf9;
-          line-height: 1.625;
         }
       `}</style>
     </>

@@ -2,45 +2,176 @@
 @import "./mixins";
 @import "./base/icons";
 
-body,
-html {
+:root {
+  --color-bg: #ecf0f1;
+  --color-panel: #f8fafb;
+  --color-panel-strong: #dbe3e6;
+  --color-shell: #6d6d65;
+  --color-text: #2c3f50;
+  --color-muted: #5b6c78;
+  --color-border: #2c3f50;
+  --color-accent: #f57600;
+  --color-info: #3297db;
+  --color-rust: #68584a;
+  --color-success: #3cff00;
+  --color-danger: #c41230;
+  --color-ink-inverse: #f5f8f8;
+  --radius-hard: 2px;
+}
+
+html,
+body {
   width: 100%;
   margin: 0;
   padding: 0;
   font-size: 16px;
+  min-height: 100%;
+}
 
-  @include md {
-    font-size: 16px;
-  }
+html {
+  background: var(--color-bg);
 }
 
 body {
-  font-family: $font-regular;
-  font-weight: normal;
+  font-family: var(--font-archivo), "Segoe UI", sans-serif;
   font-size: 16px;
-  line-height: 1;
-  font-family: $font-regular;
+  line-height: 1.6;
   font-weight: 400;
-  margin: 0px;
-  padding: 0px;
   overflow-x: hidden !important;
-  min-height: 100%;
   position: relative;
   -webkit-font-smoothing: antialiased;
-
-  background: #ffffff;
-  #__next {
-    height: auto;
-  }
-
-  &.mobile-menu-active {
-    overflow-y: hidden;
-    //  position: fixed;
-  }
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
-.main {
-  background: rgba(224, 222, 233, 0.2);
-  width: 100%;
-  overflow-x: hidden;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='none'/%3E%3Cg fill='%232c3f50' fill-opacity='0.04'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='40' y='20' width='1' height='1'/%3E%3Crect x='80' y='60' width='1' height='1'/%3E%3Crect x='20' y='90' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.8;
+  z-index: -1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-archivo), "Segoe UI", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+a,
+button,
+input,
+select,
+textarea,
+pre,
+code {
+  border-radius: var(--radius-hard);
+}
+
+pre,
+code,
+.font-mono {
+  font-family: var(--font-mono), "SFMono-Regular", monospace !important;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  color: var(--color-text);
+  background: #f9bf86;
+}
+
+.site-surface {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.industrial-grid {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M31.5 0v32M0 31.5h32' stroke='%232c3f50' stroke-opacity='0.15' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 32px 32px;
+}
+
+.brand-card {
+  background: var(--color-panel);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-hard);
+}
+
+.brand-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-border);
+  background: var(--color-panel-strong);
+  color: var(--color-text);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-hard);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.brand-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-hard);
+  padding: 0.72rem 1.15rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: none;
+}
+
+.brand-btn:hover {
+  transform: translate(2px, 2px);
+}
+
+.brand-btn:active {
+  transform: translate(0, 0);
+}
+
+.brand-btn-primary {
+  background: var(--color-accent);
+  color: var(--color-ink-inverse);
+}
+
+.brand-btn-primary:hover {
+  background: var(--color-rust);
+}
+
+.brand-btn-secondary {
+  background: var(--color-panel);
+  color: var(--color-text);
+}
+
+.brand-btn-secondary:hover {
+  background: var(--color-panel-strong);
+}
+
+.brand-terminal {
+  border: 2px solid var(--color-border);
+  background: var(--color-shell);
+  color: var(--color-ink-inverse);
+  border-radius: var(--radius-hard);
+}
+
+.brand-kbd {
+  border: 2px solid var(--color-border);
+  background: var(--color-panel-strong);
+  color: var(--color-text);
+  padding: 0 0.3rem;
+  border-radius: var(--radius-hard);
 }

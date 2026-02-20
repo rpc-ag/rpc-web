@@ -6,7 +6,7 @@ const Header = () => {
       <div className="container-fluid">
         <div className={styles.wrap}>
           <a className={styles.logo} href="/">
-            <img src="/images/rpc-logo.png" alt="rpc" />
+            <img src="/images/rpc-logo-old.png" alt="rpc" />
           </a>
 
           <nav className={styles.menu}>

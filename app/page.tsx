@@ -21,94 +21,107 @@ const PRODUCTS = [
   },
 ] as const;
 
+const METRICS = [
+  { label: "Role", value: "RPC Aggregator" },
+  { label: "Routing", value: "Multi-provider" },
+  { label: "Focus", value: "Low latency + uptime" },
+  { label: "Observability", value: "Grafana + Prometheus" },
+] as const;
+
 export default function Home() {
   return (
-    <div className="bg-stone-50 text-gray-800 font-sans leading-relaxed selection:bg-blue-100 selection:text-blue-900 min-h-screen">
+    <div className="site-surface min-h-screen">
       <SiteHeader />
 
-      <header className="relative overflow-hidden pt-16 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide uppercase mb-6 border border-blue-100">
-              Open Source Solana Infrastructure
+      <header className="industrial-grid border-b-2 border-[var(--color-border)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-18">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-8 md:gap-10 items-stretch">
+            <div className="brand-card p-8 md:p-10">
+              <span className="brand-chip">Homepage of DApp Infrastructure</span>
+              <h1 className="mt-6 text-4xl md:text-6xl font-black uppercase leading-[0.94] tracking-[0.01em]">
+                Load-Bearing
+                <br />
+                <span className="text-[var(--color-accent)]">Web3 Infrastructure</span>
+              </h1>
+              <p className="mt-6 text-base md:text-lg text-[var(--color-muted)] max-w-3xl">
+                rpc.ag builds open-source Solana infrastructure: gateway routing, proxy flows, and operator-grade observability for teams that
+                need deterministic behavior under load.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="/gateway" className="brand-btn brand-btn-primary">
+                  Explore Gateway
+                </a>
+                <a href="/grip" className="brand-btn brand-btn-secondary">
+                  Explore Grip
+                </a>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
-              We Build Open-Source Tools for
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"> Better Solana Infra</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-10">
-              rpc.ag builds open-source infrastructure products focused on Solana: RPC gateways, proxies, and load balancers,
-              with developer-first workflows and operator-grade reliability.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a
-                href="/gateway"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-              >
-                Explore Gateway
-              </a>
-              <a
-                href="/grip"
-                className="bg-white hover:bg-gray-100 text-gray-800 px-6 py-3 rounded-md font-semibold border border-gray-300 transition-all shadow-sm"
-              >
-                Explore Grip
-              </a>
-            </div>
+
+            <aside className="brand-terminal p-6 md:p-8 flex flex-col">
+              <p className="text-xs uppercase tracking-[0.14em] text-[#d9dfdf]">System Snapshot</p>
+              <div className="mt-5 space-y-3 text-sm">
+                {METRICS.map((metric) => (
+                  <div
+                    key={metric.label}
+                    className="grid grid-cols-[120px_1fr] items-start gap-4 border-b border-[#95a1a8] border-dashed pb-3"
+                  >
+                    <span className="font-mono text-[#d9dfdf]">{metric.label}</span>
+                    <span className="font-semibold text-[var(--color-success)]">{metric.value}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 font-mono text-xs text-[#d9dfdf]">
+                status <span className="text-[var(--color-success)]">ONLINE</span> • region us-east • mode production
+              </p>
+            </aside>
           </div>
         </div>
+      </header>
 
-          <div className="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full z-0 pointer-events-none opacity-40">
-            <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl" />
-            <div className="absolute top-20 right-1/4 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl" />
-          </div>
-        </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <section className="mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Products</h2>
-          <p className="text-lg text-gray-600 max-w-3xl">
-            Gateway and Grip are focused tools in the same direction: dependable open-source infrastructure for Solana developers and operators.
+          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">Infrastructure Products</h2>
+          <p className="mt-4 text-lg text-[var(--color-muted)] max-w-3xl">
+            Gateway and Grip are focused tools in the same direction: dependable, observable, and transparent Solana infrastructure.
           </p>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {PRODUCTS.map((product) => (
-            <article
-              key={product.name}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all"
-            >
-              <div className="inline-flex items-center px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-semibold uppercase tracking-wide mb-4">
-                {product.badge}
+            <article key={product.name} className="brand-card p-8">
+              <div className="flex items-center justify-between gap-3">
+                <span className="brand-chip">{product.badge}</span>
+                <span className="font-mono text-xs uppercase tracking-[0.08em] text-[var(--color-rust)]">Module</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">{product.name}</h3>
-              <p className="text-gray-600 mb-6">{product.description}</p>
-              <ul className="space-y-3 mb-8">
+              <h3 className="mt-4 text-2xl font-black uppercase tracking-[0.02em] text-[var(--color-text)]">{product.name}</h3>
+              <p className="mt-3 text-[var(--color-muted)]">{product.description}</p>
+              <ul className="mt-6 space-y-2">
                 {product.points.map((point) => (
-                  <li key={point} className="flex items-start gap-3 text-gray-700">
-                    <span className="mt-1 w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">
-                      ✓
+                  <li key={point} className="flex items-start gap-3 text-[var(--color-text)]">
+                    <span className="mt-1 inline-flex h-5 w-5 items-center justify-center border-2 border-[var(--color-border)] bg-[var(--color-panel-strong)] text-[10px] font-bold">
+                      +
                     </span>
                     <span>{point}</span>
                   </li>
                 ))}
               </ul>
-              <a
-                href={product.href}
-                className="inline-flex items-center bg-gray-900 hover:bg-black text-white px-5 py-2.5 rounded-md font-semibold transition-colors"
-              >
-                {product.cta}
-              </a>
+              <div className="mt-8">
+                <a href={product.href} className="brand-btn brand-btn-primary">
+                  {product.cta}
+                </a>
+              </div>
             </article>
           ))}
         </section>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 py-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-gray-500 text-sm">Built in open source for Solana developers, infrastructure operators, and teams.</p>
+      <footer className="border-t-2 border-[var(--color-border)] bg-[var(--color-shell)] py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="font-mono text-xs uppercase tracking-[0.08em] text-[var(--color-panel)]">
+            Built in open source for Solana developers, infrastructure operators, and teams.
+          </p>
         </div>
       </footer>
-
     </div>
   );
 }
